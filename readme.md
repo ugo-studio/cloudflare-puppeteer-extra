@@ -1,54 +1,52 @@
-# puppeteer-extra [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/berstend/puppeteer-extra/test.yml?branch=master&event=push)](https://github.com/berstend/puppeteer-extra/actions) [![Discord](https://img.shields.io/discord/737009125862408274)](https://extra.community) [![npm](https://img.shields.io/npm/v/puppeteer-extra.svg)](https://www.npmjs.com/package/puppeteer-extra) [![npm](https://img.shields.io/npm/dt/puppeteer-extra.svg)](https://www.npmjs.com/package/puppeteer-extra) [![npm](https://img.shields.io/npm/l/puppeteer-extra.svg)](https://www.npmjs.com/package/puppeteer-extra)
+# puppeteer-extra [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ugo-studio/cloudflare-puppeteer-extra/test.yml?branch=master&event=push)](https://github.com/ugo-studio/cloudflare-puppeteer-extra/actions) [![npm](https://img.shields.io/npm/v/puppeteer-extra.svg)](https://www.npmjs.com/package/cloudflare-puppeteer-extra) [![npm](https://img.shields.io/npm/dt/puppeteer-extra.svg)](https://www.npmjs.com/package/cloudflare-puppeteer-extra) [![npm](https://img.shields.io/npm/l/puppeteer-extra.svg)](https://www.npmjs.com/package/cloudflare-puppeteer-extra)
 
-> A light-weight wrapper around [`puppeteer`](https://github.com/GoogleChrome/puppeteer) and [friends](#more-examples) to enable cool [plugins](#plugins) through a clean interface.
+> A light-weight wrapper around [`@cloudflare/puppeteer`](https://www.npmjs.com/package/@cloudflare/puppeteer) and [friends](#more-examples) to enable cool [plugins](#plugins) through a clean interface..
 
-<a href="https://github.com/berstend/puppeteer-extra"><img src="https://i.imgur.com/qtlnoQL.png" width="279px" height="187px" align="right" /></a>
+<a href="https://github.com/ugo-studio/cloudflare-puppeteer-extra"><img src="https://i.imgur.com/qtlnoQL.png" width="279px" height="187px" align="right" /></a>
 
 ## Installation
 
 ```bash
-yarn add puppeteer puppeteer-extra
+yarn add @cloudflare/puppeteer cloudflare-puppeteer-extra
 # - or -
-npm install puppeteer puppeteer-extra
+npm install @cloudflare/puppeteer cloudflare-puppeteer-extra
 
-# puppeteer-extra works with any puppeteer version:
-yarn add puppeteer@2.0.0 puppeteer-extra
 ```
 
 ## Quickstart
 
 ```js
-// puppeteer-extra is a drop-in replacement for puppeteer,
+// cloudflare-puppeteer-extra is a drop-in replacement for @cloudflare/puppeteer,
 // it augments the installed puppeteer with plugin functionality.
 // Any number of plugins can be added through `puppeteer.use()`
-const puppeteer = require('puppeteer-extra')
+const puppeteer = require("cloudflare-puppeteer-extra");
 
 // Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
 // Add adblocker plugin to block all ads and trackers (saves bandwidth)
-const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
-puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
+const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
+puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
 // That's it, the rest is puppeteer usage as normal 😊
-puppeteer.launch({ headless: true }).then(async browser => {
-  const page = await browser.newPage()
-  await page.setViewport({ width: 800, height: 600 })
+puppeteer.launch({ headless: true }).then(async (browser) => {
+  const page = await browser.newPage();
+  await page.setViewport({ width: 800, height: 600 });
 
-  console.log(`Testing adblocker plugin..`)
-  await page.goto('https://www.vanityfair.com')
-  await page.waitForTimeout(1000)
-  await page.screenshot({ path: 'adblocker.png', fullPage: true })
+  console.log(`Testing adblocker plugin..`);
+  await page.goto("https://www.vanityfair.com");
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: "adblocker.png", fullPage: true });
 
-  console.log(`Testing the stealth plugin..`)
-  await page.goto('https://bot.sannysoft.com')
-  await page.waitForTimeout(5000)
-  await page.screenshot({ path: 'stealth.png', fullPage: true })
+  console.log(`Testing the stealth plugin..`);
+  await page.goto("https://bot.sannysoft.com");
+  await page.waitForTimeout(5000);
+  await page.screenshot({ path: "stealth.png", fullPage: true });
 
-  console.log(`All done, check the screenshots. ✨`)
-  await browser.close()
-})
+  console.log(`All done, check the screenshots. ✨`);
+  await browser.close();
+});
 ```
 
 The above example uses the [`stealth`](/packages/puppeteer-extra-plugin-stealth) and [`adblocker`](/packages/puppeteer-extra-plugin-adblocker) plugin, which need to be installed as well:
@@ -74,27 +72,27 @@ DEBUG=puppeteer-extra,puppeteer-extra-plugin:* node myscript.js
 > so you get perfect type support out of the box. :)
 
 ```ts
-import puppeteer from 'puppeteer-extra'
+import puppeteer from "puppeteer-extra";
 
-import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker'
-import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+import AdblockerPlugin from "puppeteer-extra-plugin-adblocker";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
-puppeteer.use(AdblockerPlugin()).use(StealthPlugin())
+puppeteer.use(AdblockerPlugin()).use(StealthPlugin());
 
 puppeteer
   .launch({ headless: false, defaultViewport: null })
-  .then(async browser => {
-    const page = await browser.newPage()
-    await page.goto('https://bot.sannysoft.com')
-    await page.waitForTimeout(5000)
-    await page.screenshot({ path: 'stealth.png', fullPage: true })
-    await browser.close()
-  })
+  .then(async (browser) => {
+    const page = await browser.newPage();
+    await page.goto("https://bot.sannysoft.com");
+    await page.waitForTimeout(5000);
+    await page.screenshot({ path: "stealth.png", fullPage: true });
+    await browser.close();
+  });
 ```
 
 > Please check this [wiki](https://github.com/berstend/puppeteer-extra/wiki/TypeScript-usage) entry in case you have TypeScript related import issues.
 
-![typings](https://i.imgur.com/bNtuTOt.png 'Typings')
+![typings](https://i.imgur.com/bNtuTOt.png "Typings")
 
 </details>
 
@@ -109,41 +107,41 @@ puppeteer
  <summary><strong>Multiple puppeteers with different plugins</strong></summary><br/>
 
 ```js
-const vanillaPuppeteer = require('puppeteer')
+const vanillaPuppeteer = require("puppeteer");
 
-const { addExtra } = require('puppeteer-extra')
-const AnonymizeUA = require('puppeteer-extra-plugin-anonymize-ua')
+const { addExtra } = require("puppeteer-extra");
+const AnonymizeUA = require("puppeteer-extra-plugin-anonymize-ua");
 
 async function main() {
-  const pptr1 = addExtra(vanillaPuppeteer)
+  const pptr1 = addExtra(vanillaPuppeteer);
   pptr1.use(
     AnonymizeUA({
-      customFn: ua => 'Hello1/' + ua.replace('Chrome', 'Beer')
+      customFn: (ua) => "Hello1/" + ua.replace("Chrome", "Beer"),
     })
-  )
+  );
 
-  const pptr2 = addExtra(vanillaPuppeteer)
+  const pptr2 = addExtra(vanillaPuppeteer);
   pptr2.use(
     AnonymizeUA({
-      customFn: ua => 'Hello2/' + ua.replace('Chrome', 'Beer')
+      customFn: (ua) => "Hello2/" + ua.replace("Chrome", "Beer"),
     })
-  )
+  );
 
-  await checkUserAgent(pptr1)
-  await checkUserAgent(pptr2)
+  await checkUserAgent(pptr1);
+  await checkUserAgent(pptr2);
 }
 
-main()
+main();
 
 async function checkUserAgent(pptr) {
-  const browser = await pptr.launch({ headless: true })
-  const page = await browser.newPage()
-  await page.goto('https://httpbin.org/headers', {
-    waitUntil: 'domcontentloaded'
-  })
-  const content = await page.content()
-  console.log(content)
-  await browser.close()
+  const browser = await pptr.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto("https://httpbin.org/headers", {
+    waitUntil: "domcontentloaded",
+  });
+  const content = await page.content();
+  console.log(content);
+  await browser.close();
 }
 ```
 
@@ -155,61 +153,61 @@ async function checkUserAgent(pptr) {
 > [puppeteer-cluster](https://github.com/thomasdondorf/puppeteer-cluster) allows you to create a cluster of puppeteer workers and plays well together with `puppeteer-extra`.
 
 ```js
-const { Cluster } = require('puppeteer-cluster')
-const vanillaPuppeteer = require('puppeteer')
+const { Cluster } = require("puppeteer-cluster");
+const vanillaPuppeteer = require("puppeteer");
 
-const { addExtra } = require('puppeteer-extra')
-const Stealth = require('puppeteer-extra-plugin-stealth')
-const Recaptcha = require('puppeteer-extra-plugin-recaptcha')
+const { addExtra } = require("puppeteer-extra");
+const Stealth = require("puppeteer-extra-plugin-stealth");
+const Recaptcha = require("puppeteer-extra-plugin-recaptcha");
 
 async function main() {
   // Create a custom puppeteer-extra instance using `addExtra`,
   // so we could create additional ones with different plugin config.
-  const puppeteer = addExtra(vanillaPuppeteer)
-  puppeteer.use(Stealth())
-  puppeteer.use(Recaptcha())
+  const puppeteer = addExtra(vanillaPuppeteer);
+  puppeteer.use(Stealth());
+  puppeteer.use(Recaptcha());
 
   // Launch cluster with puppeteer-extra
   const cluster = await Cluster.launch({
     puppeteer,
     maxConcurrency: 2,
-    concurrency: Cluster.CONCURRENCY_CONTEXT
-  })
+    concurrency: Cluster.CONCURRENCY_CONTEXT,
+  });
 
   // Define task handler
   await cluster.task(async ({ page, data: url }) => {
-    await page.goto(url)
+    await page.goto(url);
 
-    const { hostname } = new URL(url)
-    const { captchas } = await page.findRecaptchas()
-    console.log(`Found ${captchas.length} captcha on ${hostname}`)
+    const { hostname } = new URL(url);
+    const { captchas } = await page.findRecaptchas();
+    console.log(`Found ${captchas.length} captcha on ${hostname}`);
 
-    await page.screenshot({ path: `${hostname}.png`, fullPage: true })
-  })
+    await page.screenshot({ path: `${hostname}.png`, fullPage: true });
+  });
 
   // Queue any number of tasks
-  cluster.queue('https://bot.sannysoft.com')
-  cluster.queue('https://www.google.com/recaptcha/api2/demo')
-  cluster.queue('http://www.wikipedia.org/')
+  cluster.queue("https://bot.sannysoft.com");
+  cluster.queue("https://www.google.com/recaptcha/api2/demo");
+  cluster.queue("http://www.wikipedia.org/");
 
-  await cluster.idle()
-  await cluster.close()
-  console.log(`All done, check the screenshots. ✨`)
+  await cluster.idle();
+  await cluster.close();
+  console.log(`All done, check the screenshots. ✨`);
 }
 
 // Let's go
-main().catch(console.warn)
+main().catch(console.warn);
 ```
 
 For using with TypeScript, just change your imports to:
 
 ```ts
-import { Cluster } from 'puppeteer-cluster'
-import vanillaPuppeteer from 'puppeteer'
+import { Cluster } from "puppeteer-cluster";
+import vanillaPuppeteer from "puppeteer";
 
-import { addExtra } from 'puppeteer-extra'
-import Stealth from 'puppeteer-extra-plugin-stealth'
-import Recaptcha from 'puppeteer-extra-plugin-recaptcha'
+import { addExtra } from "puppeteer-extra";
+import Stealth from "puppeteer-extra-plugin-stealth";
+import Recaptcha from "puppeteer-extra-plugin-recaptcha";
 ```
 
 </details>
@@ -221,9 +219,9 @@ import Recaptcha from 'puppeteer-extra-plugin-recaptcha'
 > `--disable-notifications` flag to pass all the tests.
 
 ```js
-const chromium = require('chrome-aws-lambda')
-const { addExtra } = require('puppeteer-extra')
-const puppeteerExtra = addExtra(chromium.puppeteer)
+const chromium = require("chrome-aws-lambda");
+const { addExtra } = require("puppeteer-extra");
+const puppeteerExtra = addExtra(chromium.puppeteer);
 
 const launch = async () => {
   puppeteerExtra
@@ -231,17 +229,19 @@ const launch = async () => {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
-      headless: chromium.headless
+      headless: chromium.headless,
     })
-    .then(async browser => {
-      const page = await browser.newPage()
-      await page.goto('https://www.spacejam.com/archive/spacejam/movie/jam.htm')
-      await page.waitForTimeout(10 * 1000)
-      await browser.close()
-    })
-}
+    .then(async (browser) => {
+      const page = await browser.newPage();
+      await page.goto(
+        "https://www.spacejam.com/archive/spacejam/movie/jam.htm"
+      );
+      await page.waitForTimeout(10 * 1000);
+      await browser.close();
+    });
+};
 
-launch() // Launch Browser
+launch(); // Launch Browser
 ```
 
 </details>
@@ -252,25 +252,25 @@ launch() // Launch Browser
 > [Kikobeats/browserless](https://github.com/Kikobeats/browserless) is a puppeteer-like Node.js library for interacting with Headless production scenarios.
 
 ```js
-const puppeteer = require('puppeteer-extra')
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
-const browserless = require('browserless')({ puppeteer })
+const browserless = require("browserless")({ puppeteer });
 
 const saveBufferToFile = (buffer, fileName) => {
-  const wstream = require('fs').createWriteStream(fileName)
-  wstream.write(buffer)
-  wstream.end()
-}
+  const wstream = require("fs").createWriteStream(fileName);
+  wstream.write(buffer);
+  wstream.end();
+};
 
 browserless
-  .screenshot('https://bot.sannysoft.com', { device: 'iPhone 6' })
-  .then(buffer => {
-    const fileName = 'screenshot.png'
-    saveBufferToFile(buffer, fileName)
-    console.log(`your screenshot is here: `, fileName)
-  })
+  .screenshot("https://bot.sannysoft.com", { device: "iPhone 6" })
+  .then((buffer) => {
+    const fileName = "screenshot.png";
+    saveBufferToFile(buffer, fileName);
+    console.log(`your screenshot is here: `, fileName);
+  });
 ```
 
 </details>
@@ -423,17 +423,17 @@ to extend puppeteer with additional functionality.
 Example:
 
 ```javascript
-const puppeteer = require('puppeteer-extra')
-puppeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
+const puppeteer = require("puppeteer-extra");
+puppeteer.use(require("puppeteer-extra-plugin-anonymize-ua")());
 puppeteer.use(
-  require('puppeteer-extra-plugin-font-size')({ defaultFontSize: 18 })
-)
-;(async () => {
-  const browser = await puppeteer.launch({ headless: false })
-  const page = await browser.newPage()
-  await page.goto('http://example.com', { waitUntil: 'domcontentloaded' })
-  await browser.close()
-})()
+  require("puppeteer-extra-plugin-font-size")({ defaultFontSize: 18 })
+);
+(async () => {
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+  await page.goto("http://example.com", { waitUntil: "domcontentloaded" });
+  await browser.close();
+})();
 ```
 
 ---
@@ -449,7 +449,7 @@ The **main interface** to register `puppeteer-extra` plugins.
 Example:
 
 ```javascript
-puppeteer.use(plugin1).use(plugin2)
+puppeteer.use(plugin1).use(plugin2);
 ```
 
 - **See: [PuppeteerExtraPlugin]**
@@ -474,8 +474,8 @@ Example:
 ```javascript
 const browser = await puppeteer.launch({
   headless: false,
-  defaultViewport: null
-})
+  defaultViewport: null,
+});
 ```
 
 ---
@@ -606,4 +606,4 @@ Copyright © 2018 - 2023, [berstend̡̲̫̹̠̖͚͓̔̄̓̐̄͛̀͘](mailto:gith
 
 <!-- Markdown footnotes (for links) -->
 
-[puppeteerextraplugin]: https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin 'PuppeteerExtraPlugin Documentation'
+[puppeteerextraplugin]: https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin "PuppeteerExtraPlugin Documentation"
