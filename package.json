@@ -2,7 +2,7 @@
   "name": "cloudflare-puppeteer-extra",
   "version": "1.0.0",
   "description": "Teach puppeteer new tricks through plugins.",
-  "repository": "https://github.com/ugo-studio/puppeteer-extra",
+  "repository": "https://github.com/ugo-studio/cloudflare-puppeteer-extra",
   "author": "ugo-studio",
   "license": "MIT",
   "typings": "dist/index.d.ts",
