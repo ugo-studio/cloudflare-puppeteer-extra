@@ -1,3 +1,7 @@
+## Note:
+This package is currently not useable.
+I tried to rewrite the original puppeteer-extra package to work on cloudflare(edge environment), but it depends on standard nodejs modules(fs, path, etc), which isn't available on the edge environment.
+
 # puppeteer-extra [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ugo-studio/cloudflare-puppeteer-extra/test.yml?branch=master&event=push)](https://github.com/ugo-studio/cloudflare-puppeteer-extra/actions) [![npm](https://img.shields.io/npm/v/puppeteer-extra.svg)](https://www.npmjs.com/package/cloudflare-puppeteer-extra) [![npm](https://img.shields.io/npm/dt/puppeteer-extra.svg)](https://www.npmjs.com/package/cloudflare-puppeteer-extra) [![npm](https://img.shields.io/npm/l/puppeteer-extra.svg)](https://www.npmjs.com/package/cloudflare-puppeteer-extra)
 
 > A light-weight wrapper around [`@cloudflare/puppeteer`](https://www.npmjs.com/package/@cloudflare/puppeteer) and [friends](#more-examples) to enable cool [plugins](#plugins) through a clean interface..
